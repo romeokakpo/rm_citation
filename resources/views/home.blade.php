@@ -13,31 +13,31 @@
                        <div class="row">
                            <div class="col-md-8 col-md-offset-2 text-center js-fullheight slider-text">
                                <div class="slider-text-inner">
-                                   <h1>Intuitive <strong></strong> is How Give We the User New Superpowers</h1>
+                                   <h1>Salut ! Je suis <strong>Romaindo Miracle</strong></h1>
                                   
                            </div>
                        </div>
                    </div>
                </li>
-               <li style="background-image: url(images/img_bg_2.jpg);">
+               <li style="background-image: url(images/img_bg_1.jpg);">
                    <div class="overlay"></div>
                    <div class="container-fluid">
                        <div class="row">
                            <div class="col-md-8 col-md-offset-2 text-center js-fullheight slider-text">
                                <div class="slider-text-inner">
-                                   <h1>We are Happy to Create Newest Modern Websites</h1>
+                                   <h1>Artiste muscienne, écrivain,gymnaste...</h1>
                                </div>
                            </div>
                        </div>
                    </div>
                </li>
-               <li style="background-image: url(images/img_bg_3.jpg);">
+               <li style="background-image: url(images/img_bg_1.jpg);">
                    <div class="overlay"></div>
                    <div class="container-fluid">
                        <div class="row">
                            <div class="col-md-8 col-md-offset-2 text-center js-fullheight slider-text">
                                <div class="slider-text-inner">
-                                   <h1>Download our Free HTML5 Bootstrap Template</h1>
+                                   <h1>et environnementaliste en formation.</h1>
                                 </div>
                            </div>
                        </div>
@@ -68,7 +68,7 @@
                 <div class="blog-entry">
                     <a href="#"><img src="images/img-1.jpg" class="img-responsive" alt="Free HTML5 Bootstrap Template by FreeHTML5.co"></a>
                     <div class="stat" style="text-align: right; padding-top:5px">
-                        <span class="pl-2" style="cursor: pointer"> <i class="bi bi-heart"></i> 14</span>
+                        <span class="pl-2" style="cursor: pointer"> <i class="bi bi-heart-fill" style="color:#ef5592 "></i> 14</span>
                         <span class="pl-2" style="cursor: pointer"> <i class="bi bi-download"></i> Téléch.</span><br>
                     </div>
                     
@@ -121,7 +121,13 @@
             <div class="row">
                 <div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box" data-animate-effect="fadeInLeft">
                     <p class="fh5co-lead">Vous désirez recevoir mes nouvelles publications en temps réels ?</p>
-                    <p><a href="#" class="btn btn-primary">Cliquez-ici</a></p>
+                    <form action="">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Email">
+                            <input type="submit" style="margin-top: 5px" class="btn btn-primary btn-md" value="S'abonner">
+                        </div>
+                    </form>
+                    
                 </div>
                 
             </div>

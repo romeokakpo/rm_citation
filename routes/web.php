@@ -6,6 +6,7 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\MusiqueController;
 use App\Http\Controllers\PatnerController;
 use App\Http\Controllers\VideoController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,3 +26,17 @@ Route::get('musiques', [MusiqueController::class, 'index'])->name('musiques');
 Route::get('videos', [VideoController::class, 'index'])->name('videos');
 Route::get('partenaires', [PatnerController::class, 'index'])->name('patner');
 Route::get('contact', [ContactController::class, 'index'])->name('contact');
+
+Route::prefix('admin')->group(function () {
+
+  Route::get('/', [AdminController::class, 'index'])->name('admin.home');
+
+  Route::get('/login', function () {
+      /*if (session()->has('ADMIN'))
+          return redirect()->route('admin');*/
+      return view('admin.login');
+  })->name('admin.login');
+
+  Route::post('/login', [AdminController::class, 'login'])->name('admin.post.login');
+
+});

@@ -32,24 +32,37 @@ Chaque citation est constitué de soit d'une image, soit d'un texte.
 ###
 
 ## Modèle de la base de donnée
-- Admin  
+- Users
   id
   pseudo  
   mot de passe  
 
 
 - Citations  
-  id  
-
-
-- Commentaires  
-  id
+  id 
+  file
+  text
+  isImage
+  like
 
 - Musique  
   id
+  file
+  like
 
 - Videos  
   id
+  file
+  like
 
 - Messages  
   id
+  contenu
+  pseudo
+  email
+  telephone
+  read
+
+-Newsletters
+  id
+  email

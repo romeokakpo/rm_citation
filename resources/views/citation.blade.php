@@ -12,7 +12,7 @@
                 <div class="blog-entry" style="padding-bottom:7px">
                     <a href="#"><img src="images/img-1.jpg" class="img-responsive" alt="Free HTML5 Bootstrap Template by FreeHTML5.co"></a>
                     <div class="stat" style="text-align: right; padding-top:5px">
-                        <span class="pl-2" style="cursor: pointer"> <i class="bi bi-heart"></i> 14</span>
+                        <span class="pl-2" style="cursor: pointer"> <i class="bi bi-heart-fill" style="color:#ef5592 "></i> 14</span>
                         <span class="pl-2" style="cursor: pointer"> <i class="bi bi-download"></i> Téléch.</span><br>
                     </div>
                 </div>
@@ -167,7 +167,13 @@
             <div class="row">
                 <div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box" data-animate-effect="fadeInLeft">
                     <p class="fh5co-lead">Vous désirez recevoir mes nouvelles publications en temps réels ?</p>
-                    <p><a href="#" class="btn btn-primary">Cliquez-ici</a></p>
+                    <form action="">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Email">
+                            <input type="submit" style="margin-top: 5px" class="btn btn-primary btn-md" value="S'abonner">
+                        </div>
+                    </form>
+                    
                 </div>
                 
             </div>

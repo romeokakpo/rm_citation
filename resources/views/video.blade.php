@@ -7,102 +7,13 @@
     <div class="fh5co-narrow-content">
         <h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">Mes vidéos</h2>
         <div class="row row-bottom-padded-md">
-            <div class="col-md-3 col-sm-6 col-padding text-center animate-box">
-                <a href="#" class="work image-popup" style="background-image: url(images/img-1.jpg);">
-                    <div class="desc">
-                        <h3>Project Name</h3>
-                        <span>Illustration</span>
-                    </div>
-                </a>
+            <div class="col-sm-4 col-md-6">
+                <iframe width="460" height="215" src="https://www.youtube.com/embed/XYlFnYwlNCU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
-            <div class="col-md-3 col-sm-6 col-padding text-center animate-box">
-                <a href="#" class="work image-popup" style="background-image: url(images/img-2.jpg);">
-                    <div class="desc">
-                        <h3>Project Name</h3>
-                        <span>Brading</span>
-                    </div>
-                </a>
+            <div class="col-sm-4 col-md-6">
+                <iframe width="460" height="215" src="https://www.youtube.com/embed/_QnU6wU4fAE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
-            <div class="col-md-3 col-sm-6 col-padding text-center animate-box">
-                <a href="#" class="work image-popup" style="background-image: url(images/img-3.jpg);">
-                    <div class="desc">
-                        <h3>Project Name</h3>
-                        <span>Illustration</span>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-3 col-sm-6 col-padding text-center animate-box">
-                <a href="#" class="work image-popup" style="background-image: url(images/img-4.jpg);">
-                    <div class="desc">
-                        <h3>Project Name</h3>
-                        <span>Illustration</span>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-3 col-sm-6 col-padding text-center animate-box">
-                <a href="#" class="work image-popup" style="background-image: url(images/img-5.jpg);">
-                    <div class="desc">
-                        <h3>Project Name</h3>
-                        <span>Brading</span>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-3 col-sm-6 col-padding text-center animate-box">
-                <a href="#" class="work image-popup" style="background-image: url(images/img-6.jpg);">
-                    <div class="desc">
-                        <h3>Project Name</h3>
-                        <span>Illustration</span>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-3 col-sm-6 col-padding text-center animate-box">
-                <a href="#" class="work image-popup" style="background-image: url(images/img-1.jpg);">
-                    <div class="desc">
-                        <h3>Project Name</h3>
-                        <span>Illustration</span>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-3 col-sm-6 col-padding text-center animate-box">
-                <a href="#" class="work image-popup" style="background-image: url(images/img-2.jpg);">
-                    <div class="desc">
-                        <h3>Project Name</h3>
-                        <span>Brading</span>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-3 col-sm-6 col-padding text-center animate-box">
-                <a href="#" class="work image-popup" style="background-image: url(images/img-1.jpg);">
-                    <div class="desc">
-                        <h3>Project Name</h3>
-                        <span>Illustration</span>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-3 col-sm-6 col-padding text-center animate-box">
-                <a href="#" class="work image-popup" style="background-image: url(images/img-2.jpg);">
-                    <div class="desc">
-                        <h3>Project Name</h3>
-                        <span>Brading</span>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-3 col-sm-6 col-padding text-center animate-box">
-                <a href="#" class="work image-popup" style="background-image: url(images/img-3.jpg);">
-                    <div class="desc">
-                        <h3>Project Name</h3>
-                        <span>Illustration</span>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-3 col-sm-6 col-padding text-center animate-box">
-                <a href="#" class="work image-popup" style="background-image: url(images/img-4.jpg);">
-                    <div class="desc">
-                        <h3>Project Name</h3>
-                        <span>Illustration</span>
-                    </div>
-                </a>
-            </div>
+            
         </div>
     </div>
 
@@ -115,7 +26,13 @@
         <div class="row">
             <div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box" data-animate-effect="fadeInLeft">
                 <p class="fh5co-lead">Vous désirez recevoir mes nouvelles publications en temps réels ?</p>
-                <p><a href="#" class="btn btn-primary">Cliquez-ici</a></p>
+                <form action="">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Email">
+                        <input type="submit" style="margin-top: 5px" class="btn btn-primary btn-md" value="S'abonner">
+                    </div>
+                </form>
+                
             </div>
             
         </div>

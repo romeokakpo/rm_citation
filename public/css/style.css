@@ -11,6 +11,52 @@
 *	Edit this section
 *
 * ======================================================= */
+.music-player{
+  display:flex;
+  height: inherit;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  
+}
+.audio-player {
+  --player-button-width: 3em;
+  width: 100%;
+  height: inherit;
+}
+
+.icon-container {
+  width: 100%;
+  height: 100%;
+  background-color: #DE5E97;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.audio-icon {
+   width: 90%;
+   height: 90%;
+}
+
+.controls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.player-button {
+  background-color: transparent;
+  border: 0;
+  width: var(--player-button-width);
+  height: var(--player-button-width);
+  cursor: pointer;
+  padding: 0;
+}
+
 .biographie{
   text-align: justify;
   font-size: 1.98rem;
