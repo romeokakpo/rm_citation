@@ -4,12 +4,12 @@
 <main id="main" class="main">
 
   <div class="pagetitle">
-    <h1>Mes citations</h1>
+    <h1>Ajouter une musique</h1>
     <nav>
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{route('admin.home')}}">Accueil</a></li>
-        <li class="breadcrumb-item">Citations</li>
-        <li class="breadcrumb-item active">Mes citations</li>
+        <li class="breadcrumb-item">Musiques</li>
+        <li class="breadcrumb-item active">Ajouter une musique</li>
       </ol>
     </nav>
   </div><!-- End Page Title -->

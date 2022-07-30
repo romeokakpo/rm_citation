@@ -13,4 +13,19 @@ class AdminController extends Controller
     public function login(){
         return view('admin.login');
     }
+    
+    public function messages(){
+
+    }
+
+    public function newsletters(){
+        return view('admin.newsletter');
+    }
+
+    public function notifications(){
+        
+    }
+    public function profil(){
+        return view('admin.profile');
+    }
 }

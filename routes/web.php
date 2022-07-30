@@ -21,11 +21,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [IndexController::class, 'index'])->name('home');
-Route::get('citations', [CitationController::class, 'index'])->name('citations');
-Route::get('musiques', [MusiqueController::class, 'index'])->name('musiques');
-Route::get('videos', [VideoController::class, 'index'])->name('videos');
-Route::get('partenaires', [PatnerController::class, 'index'])->name('patner');
-Route::get('contact', [ContactController::class, 'index'])->name('contact');
+Route::get('mes-citations', [CitationController::class, 'index_public'])->name('citations');
+Route::get('mes-musiques', [MusiqueController::class, 'index_public'])->name('musiques');
+Route::get('mes-videos', [VideoController::class, 'index_public'])->name('videos');
+Route::get('mes-partenaires', [PatnerController::class, 'index_public'])->name('patner');
+Route::get('me-contacter', [ContactController::class, 'index'])->name('contact');
 
 Route::prefix('admin')->group(function () {
 
@@ -38,5 +38,13 @@ Route::prefix('admin')->group(function () {
   })->name('admin.login');
 
   Route::post('/login', [AdminController::class, 'login'])->name('admin.post.login');
+  
+  Route::resource('/citations', CitationController::class);
+  Route::resource('videos', VideoController::class);
+  Route::resource('partenaires', PatnerController::class);
+  Route::resource('musiques', MusiqueController::class);
 
+  Route::get('/newsletters', [AdminController::class, 'newsletters'])->name('newsletters.list');
+  Route::get('/notifications', [AdminController::class, 'notifications'])->name('notifications.list');
+  Route::get('/profil', [AdminController::class, 'profil'])->name('admin.profil');
 });

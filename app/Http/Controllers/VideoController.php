@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 class VideoController extends Controller
 {
     public function index(){
+        return view('admin.videos');
+    }
+    public function index_public(){
         return view('video');
+    }
+    public function create(){
+        return view('admin.video_create');
     }
 }
