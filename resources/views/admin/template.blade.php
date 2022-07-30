@@ -265,22 +265,22 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="{{route('admin.home')}}">
+        <a class="nav-link {{URL::current() != route('admin.home')?"collapsed":""}}" href="{{route('admin.home')}}">
           <i class="bi bi-grid"></i>
           <span>Tableau de bord</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#citations-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link {{(strpos(Route::currentRouteName() ,'admin.citations')==0?'collapsed':'')}}" data-bs-target="#citations-nav" data-bs-toggle="collapse" href="#">
           <i class="ri ri-double-quotes-r"></i><span>Citations</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="citations-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
           <li>
-            <a href="{{route('citations.index')}}">
+            <a href="{{route('citations.index')}}" class="{{URL::current() == route('citations.index')?"active":""}}">
               <i class="bi bi-circle"></i><span>Mes citations</span>
             </a>
-            <a href="{{route('citations.create')}}">
+            <a href="{{route('citations.create')}}" class="{{URL::current() == route('citations.create')?"active":""}}">
               <i class="bi bi-circle"></i><span>Ajouter une citation</span>
             </a>
           </li>
@@ -293,10 +293,10 @@
         </a>
         <ul id="musiques-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
           <li>
-            <a href="{{route('musiques.index')}}">
+            <a href="{{route('musiques.index')}}" class="{{URL::current() == route('musiques.index')?"active":""}}">
               <i class="bi bi-circle"></i><span>Mes musiques</span>
             </a>
-            <a href="{{route('musiques.create')}}">
+            <a href="{{route('musiques.create')}}" class="{{URL::current() == route('musiques.create')?"active":""}}">
               <i class="bi bi-circle"></i><span>Ajouter une musique</span>
             </a>
           </li>
@@ -309,10 +309,10 @@
         </a>
         <ul id="videos-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
           <li>
-            <a href="{{route('videos.index')}}">
+            <a href="{{route('videos.index')}}" class="{{URL::current() == route('videos.index')?"active":""}}">
               <i class="ri bi-circle"></i><span>Mes vidéos</span>
             </a>
-            <a href="{{route('videos.create')}}">
+            <a href="{{route('videos.create')}}" class="{{URL::current() == route('videos.create')?"active":""}}">
               <i class="bi bi-circle"></i><span>Ajouter une vidéo</span>
             </a>
           </li>
@@ -325,10 +325,10 @@
         </a>
         <ul id="parter-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
           <li>
-            <a href="{{route('partenaires.index')}}">
+            <a href="{{route('partenaires.index')}}" class="{{URL::current() == route('partenaires.index')?"active":""}}">
               <i class="bi bi-circle"></i><span>Mes partenaires</span>
             </a>
-            <a href="{{route('partenaires.create')}}">
+            <a href="{{route('partenaires.create')}}" class="{{URL::current() == route('partenaires.create')?"active":""}}">
               <i class="bi bi-circle"></i><span>Ajouter un partenaire</span>
             </a>
           </li>
@@ -336,14 +336,14 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link icon collapsed" href="{{route('newsletters.list')}}">
+        <a class="nav-link icon {{URL::current() != route('newsletters.list')?"collapsed":""}}" href="{{route('newsletters.list')}}">
           <i class="bx bxs-contact"></i>
           <span>Abonnés</span>
         </a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{route('admin.profil')}}">
+        <a class="nav-link {{URL::current() != route('admin.profil')?"collapsed":""}}" href="{{route('admin.profil')}}">
           <i class="bi bi-person"></i>
           <span>Profil</span>
         </a>

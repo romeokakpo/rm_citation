@@ -42,9 +42,10 @@
         <div class="row">
             <div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box" data-animate-effect="fadeInLeft">
                 <p class="fh5co-lead">Vous désirez recevoir mes nouvelles publications en temps réels ?</p>
-                <form action="">
+                <form method="POST" action="{{route('musiques.post')}}">
+                    @csrf
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Email">
+                        <input type="text" required name="email" class="form-control" placeholder="Email">
                         <input type="submit" style="margin-top: 5px" class="btn btn-primary btn-md" value="S'abonner">
                     </div>
                 </form>
