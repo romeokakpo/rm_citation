@@ -15,10 +15,19 @@
   </div><!-- End Page Title -->
 
   <section class="section">
-    <div class="row">
-      <div class="col-lg-6">
-
-        
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Ajouter une citation</h5>
+            <!-- General Form Elements -->
+            <form>
+              
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 
       </div>
     </div>

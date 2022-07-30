@@ -272,10 +272,10 @@
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link {{(strpos(Route::currentRouteName() ,'admin.citations')==0?'collapsed':'')}}" data-bs-target="#citations-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link {{(strpos(\Request::route()->getName() ,'citations')===0?'':'collapsed')}}" data-bs-target="#citations-nav" data-bs-toggle="collapse" href="#">
           <i class="ri ri-double-quotes-r"></i><span>Citations</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="citations-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+        <ul id="citations-nav" class="nav-content collapse {{(strpos(\Request::route()->getName() ,'citations')===0?'show':'')}}" data-bs-parent="#sidebar-nav">
           <li>
             <a href="{{route('citations.index')}}" class="{{URL::current() == route('citations.index')?"active":""}}">
               <i class="bi bi-circle"></i><span>Mes citations</span>
@@ -288,10 +288,10 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#musiques-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link {{(strpos(\Request::route()->getName() ,'musiques')===0?'':'collapsed')}}" data-bs-target="#musiques-nav" data-bs-toggle="collapse" href="#">
           <i class="ri ri-music-2-line"></i><span>Musiques</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="musiques-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+        <ul id="musiques-nav" class="nav-content collapse {{(strpos(\Request::route()->getName() ,'musiques')===0?'show':'')}}" data-bs-parent="#sidebar-nav">
           <li>
             <a href="{{route('musiques.index')}}" class="{{URL::current() == route('musiques.index')?"active":""}}">
               <i class="bi bi-circle"></i><span>Mes musiques</span>
@@ -304,10 +304,10 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#videos-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link {{(strpos(\Request::route()->getName() ,'videos')===0?'':'collapsed')}}" data-bs-target="#videos-nav" data-bs-toggle="collapse" href="#">
           <i class="ri ri-video-line"></i><span>Vidéos</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="videos-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+        <ul id="videos-nav" class="nav-content collapse {{(strpos(\Request::route()->getName() ,'videos')===0?'show':'')}}" data-bs-parent="#sidebar-nav">
           <li>
             <a href="{{route('videos.index')}}" class="{{URL::current() == route('videos.index')?"active":""}}">
               <i class="ri bi-circle"></i><span>Mes vidéos</span>
@@ -320,10 +320,10 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#parter-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link {{(strpos(\Request::route()->getName() ,'partenaires')===0?'':'collapsed')}}" data-bs-target="#parter-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-people"></i><span>Partenaires</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="parter-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+        <ul id="parter-nav" class="nav-content collapse {{(strpos(\Request::route()->getName() ,'partenaires')===0?'show':'')}}" data-bs-parent="#sidebar-nav">
           <li>
             <a href="{{route('partenaires.index')}}" class="{{URL::current() == route('partenaires.index')?"active":""}}">
               <i class="bi bi-circle"></i><span>Mes partenaires</span>
@@ -349,7 +349,6 @@
         </a>
       </li><!-- End Profile Page Nav -->  
     </ul>
-
   </aside><!-- End Sidebar-->
 
   @yield('main')
