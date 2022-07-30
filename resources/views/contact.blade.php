@@ -47,24 +47,25 @@
                 <h2>Me contacter</h2>
             </div>
         </div>
-        <form action="">
+        <form method="POST" action="{{route('contact.post')}}">
+            @csrf
             <div class="row">
                 <div class="col-md-12">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Pseudo">
+                                <input name="pseudo" type="text" class="form-control" placeholder="Pseudo">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Email">
+                                <input required name="email" type="text" class="form-control" placeholder="Email">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Téléphone">
+                                <input required name="numero" type="text" class="form-control" placeholder="Téléphone">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <textarea name="" id="message" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
+                                <textarea required name="message" id="message" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
                             </div>
                             <div class="form-group">
                                 <input type="submit" class="btn btn-primary btn-md" value="Envoyer le message">

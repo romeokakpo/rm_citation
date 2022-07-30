@@ -9,4 +9,9 @@ class ContactController extends Controller
     public function index(){
         return view('contact');
     }
+
+    public function messages(Request $request){
+        //
+        return back()->with('success','true');
+    }
 }
