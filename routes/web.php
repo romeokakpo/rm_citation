@@ -21,7 +21,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [IndexController::class, 'index'])->name('home');
-Route::post('/', [IndexController::class, 'newsletter'])->name('home.post');
+
+Route::post('/', [ContactController::class, 'abonner'])->name('home.post');
 
 Route::get('mes-citations', [CitationController::class, 'index_public'])->name('citations');
 Route::post('mes-citations', [IndexController::class, 'newsletter'])->name('citations.post');
@@ -36,7 +37,7 @@ Route::get('mes-partenaires', [PatnerController::class, 'index_public'])->name('
 Route::post('mes-partenaires', [IndexController::class, 'newsletter'])->name('patner.post');
 
 Route::get('me-contacter', [ContactController::class, 'index'])->name('contact');
-Route::post('me-contacter', [ContactController::class, 'messages'])->name('contact.post');
+Route::post('me-contacter', [ContactController::class, 'contact'])->name('contact');
 
 Route::prefix('admin')->group(function () {
 
