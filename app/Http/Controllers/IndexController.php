@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Message;
+use App\Models\Newsletter;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
@@ -10,8 +12,10 @@ class IndexController extends Controller
         return view('home');
     }
 
-    public function newsletter(Request $request){
-        //
+    public function newsletter(){
+        Newsletter::firstOrCreate([
+            'email' => request('email'),
+        ]);
         return back()->with('success','true');
     }
 }
