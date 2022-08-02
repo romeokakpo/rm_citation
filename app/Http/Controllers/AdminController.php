@@ -13,7 +13,9 @@ use Illuminate\Support\Facades\Hash;
 class AdminController extends Controller
 {
     public function index()
-    {
+    {   
+        if (!session()->has('ADMIN'))
+            return redirect()->route('admin.login');
         $citations = Citation::count();
         $download = Citation::sum('download');
         $like = Citation::sum('like');

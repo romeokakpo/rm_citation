@@ -43,8 +43,8 @@ Route::prefix('admin')->group(function () {
   Route::get('/', [AdminController::class, 'index'])->name('admin.home');
 
   Route::get('/login', function () {
-      /*if (session()->has('ADMIN'))
-          return redirect()->route('admin');*/
+      if (session()->has('ADMIN'))
+          return redirect()->route('admin.home');
       return view('admin.login');
   })->name('admin.login');
 
