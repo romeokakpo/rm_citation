@@ -21,8 +21,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [IndexController::class, 'index'])->name('home');
-
-Route::post('/', [ContactController::class, 'abonner'])->name('home.post');
+Route::post('/', [IndexController::class, 'newsletter'])->name('home.post');
 
 Route::get('mes-citations', [CitationController::class, 'index_public'])->name('citations');
 Route::post('mes-citations', [IndexController::class, 'newsletter'])->name('citations.post');
@@ -37,15 +36,15 @@ Route::get('mes-partenaires', [PatnerController::class, 'index_public'])->name('
 Route::post('mes-partenaires', [IndexController::class, 'newsletter'])->name('patner.post');
 
 Route::get('me-contacter', [ContactController::class, 'index'])->name('contact');
-Route::post('me-contacter', [ContactController::class, 'contact'])->name('contact');
+Route::post('me-contacter', [ContactController::class, 'messages'])->name('contact.post');
 
 Route::prefix('admin')->group(function () {
 
   Route::get('/', [AdminController::class, 'index'])->name('admin.home');
 
   Route::get('/login', function () {
-      /*if (session()->has('ADMIN'))
-          return redirect()->route('admin');*/
+      if (session()->has('ADMIN'))
+          return redirect()->route('admin.home');
       return view('admin.login');
   })->name('admin.login');
 
@@ -58,5 +57,8 @@ Route::prefix('admin')->group(function () {
 
   Route::get('/newsletters', [AdminController::class, 'newsletters'])->name('newsletters.list');
   Route::get('/notifications', [AdminController::class, 'notifications'])->name('notifications.list');
+  Route::get('/messages', [AdminController::class, 'messages'])->name('inbox');
   Route::get('/profil', [AdminController::class, 'profil'])->name('admin.profil');
+  Route::post('/profil', [AdminController::class, 'password'])->name('password');
+  Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
 });
