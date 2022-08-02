@@ -57,5 +57,8 @@ Route::prefix('admin')->group(function () {
 
   Route::get('/newsletters', [AdminController::class, 'newsletters'])->name('newsletters.list');
   Route::get('/notifications', [AdminController::class, 'notifications'])->name('notifications.list');
+  Route::get('/messages', [AdminController::class, 'messages'])->name('inbox');
   Route::get('/profil', [AdminController::class, 'profil'])->name('admin.profil');
+  Route::post('/profil', [AdminController::class, 'password'])->name('password');
+  Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
 });

@@ -9,8 +9,8 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>R💕M💕 &mdash; @yield('title')</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Free HTML5 Website Template by FreeHTML5.co" />
-	<meta name="keywords" content="free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
+	<meta name="description" content="Romaindo Miracle, site web personnel" />
+	<meta name="keywords" content="citations, Romaindo Miracle, musique, vidéos, gymnastique, Bénin" />
 	<meta name="author" content="FreeHTML5.co" />
 
   	<!-- 
@@ -63,6 +63,9 @@
 
 	</head>
 	<body>
+	<?php
+		$user = \App\Models\User::find(1)->first();
+	?>
 	<div id="fh5co-page">
 		<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle"><i></i></a>
 		<aside id="fh5co-aside" role="complementary" class="border js-fullheight">
@@ -82,10 +85,10 @@
 			<div class="fh5co-footer">
 				<p><small>&copy; 2022 All Rights Reserved.</span></p>
 				<ul>
-					<li><a href="#"><i class="icon-facebook2"></i></a></li>
-					<li><a href="#"><i class="icon-twitter2"></i></a></li>
-					<li><a href="#"><i class="icon-instagram"></i></a></li>
-					<li><a href="#"><i class="icon-linkedin2"></i></a></li>
+					<li><a href="{{$user->facebook}}"><i class="icon-facebook2"></i></a></li>
+					<li><a href="{{$user->twitter}}"><i class="icon-twitter2"></i></a></li>
+					<li><a href="{{$user->instagram}}"><i class="icon-instagram"></i></a></li>
+					<li><a href="{{$user->linkedin}}"><i class="icon-linkedin2"></i></a></li>
 				</ul>
 			</div>
 
