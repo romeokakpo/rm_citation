@@ -88,7 +88,6 @@
 					<li><a href="{{$user->facebook}}"><i class="icon-facebook2"></i></a></li>
 					<li><a href="{{$user->twitter}}"><i class="icon-twitter2"></i></a></li>
 					<li><a href="{{$user->instagram}}"><i class="icon-instagram"></i></a></li>
-					<li><a href="{{$user->linkedin}}"><i class="icon-linkedin2"></i></a></li>
 				</ul>
 			</div>
 
