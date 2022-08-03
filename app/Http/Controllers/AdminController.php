@@ -24,8 +24,32 @@ class AdminController extends Controller
         return view('admin.index', compact('citations', 'download', 'like', 'messages', 'recents'));
     }
 
-    public function login()
+    public function login(Request $request)
     {
+        $request->validate([
+            'email' => 'bail|email|required',
+            'password' => 'bail|required|alpha_num',
+        ]);
+
+        $user = User::find(1)->first();
+
+        try {
+            if ($user->email == $request->email && Hash::check($request->password, $user->password)){
+                //Identification de la connexion
+                Session::put('ADMIN', serialize($user));
+                return redirect()->route('admin');
+
+            } else
+
+                return back()->with('error', 'Erreur d\'authentification ! Veuiller revoir
+                vos identifiants');
+
+        } catch (Exception $e) {
+            return back()->with('error', 'Erreur d\'authentification ! Veuiller revoir
+            vos identifiants');
+        }
+    
+    
         /*
         if (session()->has('ADMIN'))
             return redirect()->route('admin');

@@ -48,7 +48,9 @@ Route::prefix('admin')->group(function () {
       return view('admin.login');
   })->name('admin.login');
 
+  
   Route::post('/login', [AdminController::class, 'login'])->name('admin.post.login');
+
   
   Route::resource('/citations', CitationController::class);
   Route::resource('videos', VideoController::class);
