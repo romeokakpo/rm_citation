@@ -17,16 +17,15 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name')->default('Romaindo Miracle');
-            $table->string('email')->unique()->default('');
-            $table->string('telephone')->default('+229 91 98 59 34');
-            $table->string('facebook')->default('#');
-            $table->string('twitter')->default('#');
-            $table->string('instagram')->default('#');
-            $table->string('linkedin')->default('#');
+            $table->string('email')->unique()->default('rromaine260@gmail.com');
+            $table->string('telephone')->default('+229 XX XX XX XX');
+            $table->string('facebook')->default('https://www.facebook.com/romaidomiracle.mahoulikponto');
+            $table->string('twitter')->default('https://mobile.twitter.com/RomaineRomaine7');
+            $table->string('instagram')->default('https://www.instagram.com/romaindo_miracle/');
             $table->string('picture')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->default(Hash::make('adminer'));
-            $table->string('adresse')->default('Bidossessi, Abomey-Calavi, Bénin');
+            $table->string('adresse')->default('Cotonou, Bénin');
             $table->rememberToken();
             $table->timestamps();
         });

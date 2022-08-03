@@ -39,5 +39,17 @@
         </div>
     </div>
 </div>
+<div class="notification">
+    Abonnement réussi !
+  </div>
+  @if(session()->has('success'))
+    <script>
+        document.querySelector('.notification').style.display = "block";
+        document.querySelector('.notification').style.transition = "3s";
+        setTimeout(() => {
+            document.querySelector('.notification').style.display = "none";
+        }, 3000);
+    </script>
+  @endif
 </div>
 @endsection

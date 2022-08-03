@@ -938,8 +938,9 @@ body.offcanvas #fh5co-main, body.offcanvas .fh5co-nav-toggle {
   border: 2px solid #ef5592;
 }
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
-  background: #279bab !important;
-  border-color: #279bab !important;
+  background: #fff !important;
+  color: #ef5592;
+  border-color:  #ef5592!important;
 }
 .btn-primary.btn-outline {
   background: transparent;

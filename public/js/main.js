@@ -152,6 +152,88 @@
 		burgerMenu();
 		mobileMenuOutsideClick();
 		sliderMain();
+
+		//Téléchargement
+		let url = "/user/register";
+    let token = document
+        .querySelector('meta[name="csrf-token"]')
+        .getAttribute("content");
+    $(".register").submit((e) => {
+        $(".register_btn").css("display", "none");
+        $(".en_cours").css("display", "block").text("En cours...");
+        /*Vérifier les valeurs ici
+            pseudo: $(".pseudo").val(),
+                email: $(".email").val(),
+                matricule: parseInt($(".matricule").val()),
+            }),
+        */
+        var options = {
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json, text-plain, */*",
+                "X-Requested-With": "XMLHttpRequest",
+                "X-CSRF-TOKEN": token,
+            },
+            method: "post",
+            credentials: "same-origin",
+            body: JSON.stringify({
+                pseudo: $(".pseudo").val(),
+                email: $(".email").val(),
+                matricule: parseInt($(".matricule").val()),
+            }),
+        };
+
+        fetch(url, options)
+            .then((response) => response.json())
+            .then((response) => {
+                $(".en_cours").css("display", "none");
+                if (response.success) {
+                    $(".pseudo").val("");
+                    $(".matricule").val("");
+                    $(".text-danger.error").text("");
+                    if (response.data.inscrit) {
+                        $(".alogin").click();
+                        $(".text-success.info").text(
+                            "Vous possedez déjà un compte..."
+                        );
+                        $(".log_email").val($(".email").val());
+                        $(".email").val("");
+                        $(".register_btn").css("display", "block");
+                    } else if (response.data.user) {
+                        $(".email").val("");
+                        $(".text-success.error")
+                            .text(
+                                "Consultez votre boîte mail pour recupérer vos identifiants de connexion."
+                            )
+                            .fadeIn();
+                    }
+                } else {
+                    $(".text-success.error").text("");
+                    $(".text-danger.error")
+                        .text(
+                            "Informations incorrectes ou vous n'êtes pas autorisé sur ce site..."
+                        )
+                        .fadeIn();
+                    $(".register_btn").css("display", "block");
+                }
+            })
+            .catch(() => {
+                $(".en_cours").css("display", "none");
+                $(".text-success.error").text("");
+                $(".text-danger.error")
+                    .text(
+                        "Une erreur s'est produite,nous allons rechargez la page !"
+                    )
+                    .fadeIn();
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2000);
+            });
+        e.preventDefault();
+    });
+
+
+		//Like
 	});
 
 

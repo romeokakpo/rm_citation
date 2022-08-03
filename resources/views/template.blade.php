@@ -11,7 +11,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Romaindo Miracle, site web personnel" />
 	<meta name="keywords" content="citations, Romaindo Miracle, musique, vidéos, gymnastique, Bénin" />
-	<meta name="author" content="FreeHTML5.co" />
+	<meta name="csrf-token" content="{{ csrf_token() }}">
+	<meta name="author" content="Romaindo Miracle" />
 
   	<!-- 
 	//////////////////////////////////////////////////////
@@ -60,7 +61,22 @@
 	<!--[if lt IE 9]>
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
-
+		<style>
+			.notification{
+				position: fixed;
+				right:10px;
+				 top:10px;
+				 background:#48c78e;
+				 height: 50px;
+				 line-height: 50px;
+				 color: #fffffb;
+				 border-radius: 5px;
+				 z-index:999999;
+				 padding-left: 15px;
+				 padding-right: 15px;
+				 display: none;
+			}
+		</style>
 	</head>
 	<body>
 	<?php

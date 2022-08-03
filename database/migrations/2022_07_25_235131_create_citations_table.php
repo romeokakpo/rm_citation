@@ -15,11 +15,11 @@ class CreateCitationsTable extends Migration
     {
         Schema::create('citations', function (Blueprint $table) {
             $table->id();
-            $table->boolean('today')->default(1);
+            $table->boolean('today')->default(0);
             $table->integer('like')->default(0);
             $table->integer('download')->default(0);
             $table->string('file');
-            $table->string('text');
+            $table->string('texte');
             $table->timestamps();
         });
     }

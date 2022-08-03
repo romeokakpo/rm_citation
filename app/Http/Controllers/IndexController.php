@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Citation;
 use App\Models\Message;
 use App\Models\Newsletter;
 use Illuminate\Http\Request;
@@ -9,7 +10,8 @@ use Illuminate\Http\Request;
 class IndexController extends Controller
 {
     public function index(){
-        return view('home');
+        $citations = Citation::orderBy('id','desc')->paginate(4);
+        return view('home', compact('citations'));
     }
 
     public function newsletter(){

@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Citation extends Model
 {
     use HasFactory;
+    protected $fillable= ['today','like','download','file', 'text'];
 }
