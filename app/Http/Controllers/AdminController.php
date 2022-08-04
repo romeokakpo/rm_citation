@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Citation;
 use App\Models\Message;
+use App\Models\Music;
 use App\Models\Newsletter;
 use App\Models\Recent;
 use App\Models\User;
+use App\Models\Video;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -19,11 +21,16 @@ class AdminController extends Controller
         if (!session()->has('ADMIN'))
             return redirect()->route('admin.login');
         $citations = Citation::count();
+        $musiques = Music::count();
+        $videos = Video::count();
         $download = Citation::sum('download');
-        $like = Citation::sum('like');
+        //$like = Citation::sum('like');
         $messages = Message::orderBy('id', 'desc')->paginate(5);
+        while(Recent::count() > 10){
+            Recent::first()->delete();
+        }
         $recents = Recent::orderBy('id', 'desc')->paginate(10);
-        return view('admin.index', compact('citations', 'download', 'like', 'messages', 'recents'));
+        return view('admin.index', compact('citations', 'download', 'musiques','videos', 'messages', 'recents'));
     }
 
     public function login(Request $request)

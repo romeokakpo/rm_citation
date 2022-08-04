@@ -160,7 +160,7 @@
     $(".telech").click((e) => {
         //Récupérer l'id
 				document.querySelector('.notification.wait').style.display = "block";
-        let id = e.target.dataset.id;
+        let id = e.target.nextElementSibling.dataset.id;
 				let url = "download";
         var options = {
             headers: {
@@ -175,39 +175,33 @@
                 id:Number(id)
             }),
         };
+				function error(){
+					document.querySelector('.notification.error').style.display = "block";
+					document.querySelector('.notification.error').style.transition = "3s";
+					setTimeout(() => {
+						document.querySelector('.notification.error').style.display = "none";
+					}, 3000);
+				}
 				
         fetch(url, options)
             .then((response) => response.json())
             .then((response) => {
                  //Success
+								 
 								 if(response.success){
-									//
+									e.target.nextElementSibling.click();
 									document.querySelector('.notification.wait').style.display = "none";
 								 }
-								 else
-								{
-									e.preventDefault();
-									document.querySelector('.notification.error').style.display = "block";
-									document.querySelector('.notification.error').style.transition = "3s";
-									setTimeout(() => {
-										document.querySelector('.notification.error').style.display = "none";
-									}, 3000);
-								}
+								 else{
+									document.querySelector('.notification.wait').style.display = "none";
+									error();
+								 }	
             })
-            .catch(() => {
-                //Error
-								e.preventDefault();
-								document.querySelector('.notification.error').style.display = "block";
-									document.querySelector('.notification.error').style.transition = "3s";
-									setTimeout(() => {
-										document.querySelector('.notification.error').style.display = "none";
-									}, 3000);
-            });
+            .catch(()=>{
+							document.querySelector('.notification.wait').style.display = "none";
+							error();
+						});
     });
-
-		function error(){
-			
-		}
 		//Like
 	});
 

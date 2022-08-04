@@ -7,13 +7,11 @@
     <div class="fh5co-narrow-content">
         <h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">Mes vidéos</h2>
         <div class="row row-bottom-padded-md">
-            <div class="col-sm-4 col-md-6">
-                <iframe width="460" height="215" src="https://www.youtube.com/embed/XYlFnYwlNCU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-            <div class="col-sm-4 col-md-6">
-                <iframe width="460" height="215" src="https://www.youtube.com/embed/_QnU6wU4fAE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-            
+            @foreach ($videos as $video)
+                <div class="col-sm-4 col-md-6">
+                    <iframe width="460" height="215" src="{{$video->link}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            @endforeach
         </div>
     </div>
 

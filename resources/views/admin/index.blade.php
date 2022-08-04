@@ -61,19 +61,18 @@
             </div><!-- End Revenue Card -->
 
             <!-- Revenue Card -->
-            <div class="col-xxl-4 col-md-12">
-              <div class="card info-card revenue-card">
+            <div class="col-xxl-4 col-md-6">
+              <div class="card info-card sales-card">
 
                 <div class="card-body">
-                  <h5 class="card-title">Likes reçu</span></h5>
+                  <h5 class="card-title">Musiques</span></h5>
 
                   <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"
-                      style="color: #ef5592; background:#ef559346">
-                      <i class="bi bi-heart"></i>
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="ri ri-music-2-line"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>{{ $like }}</h6>
+                      <h6>{{ $musiques }}</h6>
 
                     </div>
                   </div>
@@ -81,7 +80,25 @@
 
               </div>
             </div><!-- End Revenue Card -->
+            <div class="col-xxl-4 col-md-6">
+              <div class="card info-card sales-card">
 
+                <div class="card-body">
+                  <h5 class="card-title">Videos</span></h5>
+
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="ri ri-video-line"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6>{{ $videos }}</h6>
+
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
 
             <!-- Recent Sales -->
             <div class="col-12">
@@ -143,7 +160,7 @@
                 @endif
                 @foreach ($recents as $recent)
                   <div class="activity-item d-flex">
-                    <div class="activite-label">32 min</div>
+                    
                     <i
                       class='bi bi-circle-fill activity-badge {{ $recent->type == 'success' ? 'text-success' : 'text-danger' }} align-self-start'></i>
                     <div class="activity-content">

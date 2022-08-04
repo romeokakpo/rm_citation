@@ -56,76 +56,51 @@
         <li class="nav-item dropdown">
 
           <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-            <i class="bi bi-bell"></i>
-            <span class="badge bg-primary badge-number">4</span>
-          </a><!-- End Notification Icon -->
+            <i class="bi bi-chat-left-text"></i>
+            @php
+              $countnotif = \App\Models\Notification::where('lu', 0)->count();
+            @endphp
+            @if ($countmsg)
+              <span class="badge bg-success badge-number">{{ $countmsg }}</span>
+            @endif
 
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+          </a><!-- End Messages Icon -->
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
             <li class="dropdown-header">
-              You have 4 new notifications
-              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+              @if ($countmsg)
+                Vous avez {{ $countmsg }} message(s) non lu
+                <a href="{{ route('inbox') }}"><span class="badge rounded-pill bg-primary p-2 ms-2">Tout voir</span></a>
+              @else
+                Pas de nouveaux messages
+              @endif
+
             </li>
             <li>
               <hr class="dropdown-divider">
             </li>
-
-            <li class="notification-item">
-              <i class="bi bi-exclamation-circle text-warning"></i>
-              <div>
-                <h4>Lorem Ipsum</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>30 min. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-x-circle text-danger"></i>
-              <div>
-                <h4>Atque rerum nesciunt</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>1 hr. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-check-circle text-success"></i>
-              <div>
-                <h4>Sit rerum fuga</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>2 hrs. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-info-circle text-primary"></i>
-              <div>
-                <h4>Dicta reprehenderit</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>4 hrs. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+            @php
+              $nonlu = \App\Models\Message::where('lu', 0)
+                  ->latest('id')
+                  ->paginate(5)
+                  ->all();
+            @endphp
+            @foreach ($nonlu as $message)
+              <li class="message-item">
+                <a href="{{ route('inbox', $message->id) }}">
+                  <div>
+                    <h4>{{ $message->email }}</h4>
+                    <p>{{ substr($message->message, 0, 50) }}...</p>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+            @endforeach
             <li class="dropdown-footer">
-              <a href="#">Show all notifications</a>
+              <a href="{{ route('inbox') }}">Afficher tous les messages</a>
             </li>
-
-          </ul><!-- End Notification Dropdown Items -->
-
+          </ul><!-- End Messages Dropdown Items -->
         </li><!-- End Notification Nav -->
 
         <li class="nav-item dropdown">

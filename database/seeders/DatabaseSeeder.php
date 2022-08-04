@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Citation;
 use App\Models\User;
+use App\Models\Video;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -53,5 +54,9 @@ class DatabaseSeeder extends Seeder
         Citation::create(['file'=>'/storage/citations/photo_2022-08-02_19-31-53.jpg', 'texte'=>'']);
         Citation::create(['file'=>'/storage/citations/photo_2022-08-02_19-31-54.jpg', 'texte'=>'']);
         Citation::create(['file'=>'/storage/citations/photo_2022-08-02_19-31-55.jpg', 'texte'=>'', 'today'=>1]);
+    
+        //Videos
+        Video::create(['link'=>'https://www.youtube.com/embed/XYlFnYwlNCU']);
+        Video::create(['link'=>'https://www.youtube.com/embed/_QnU6wU4fAE']);
     }
 }

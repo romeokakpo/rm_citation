@@ -74,9 +74,9 @@
               <img style="cursor:pointer" onclick="window.open(this.src, '_self');" src="{{ $citation->file }}"
                 class="img-responsive" alt="{{ $citation->texte }}">
               <div class="stat" style="text-align: right; padding-top:5px">
-                <span class="pl-2" style="cursor: pointer"> <i class="bi bi-heart"></i> {{ $citation->like }}</span>
-                <span class="pl-2 telech"> <a data-id="{{$citation->id}}" download href="{{ $citation->file }}"><i
-                      class="bi bi-download"></i>Téléch.</a></span><br>
+                <!--<span class="pl-2 liked" style="cursor: pointer"> <i class="bi bi-heart"></i> {{ $citation->like }}</span>-->
+                <span class="pl-2 telech" style="cursor: pointer"><i class="bi bi-download"></i> Télécharger</span>
+                <a data-id="{{$citation->id}}" download href="{{ $citation->file }}"></a><br>
               </div>
 
               <span class="pl-2"><small style="font-size: 0.99rem;">Publié le
