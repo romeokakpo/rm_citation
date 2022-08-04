@@ -48,44 +48,46 @@
               </div><!-- End Logo -->
 
               <div class="card mb-3">
-
                 <div class="card-body">
-
                   <div class="pt-4 pb-2">
                     <h5 class="card-title text-center pb-0 fs-4">Connectez-vous</h5>
                     <p class="text-center small"></p>
                   </div>
 
-                  <form class="row g-3 needs-validation" novalidate method="POST">
+                  <form class="row g-3" method="POST" action="{{route('admin.post.login')}}">
                       @csrf
                     <div class="col-12">
                       <label for="yourUsername" class="form-label">Email</label>
-                      <div class="input-group has-validation">
-                        
-                        <input type="text" name="username" class="form-control" id="yourUsername" required>
-                        <div class="invalid-feedback">Please enter your username.</div>
+                      <div class="input-group">
+                        <input type="email" name="email" placeholder="exemple@gmail.com" class="form-control @error('email') is-invalid @enderror" id="yourUsername" required value={{ old('email')}} >
+                        @error('email')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                       </div>
                     </div>
 
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">Password</label>
-                      <input type="password" name="password" class="form-control" id="yourPassword" required>
-                      <div class="invalid-feedback">Please enter your password!</div>
-                    </div>
-
-                    <!--<div class="col-12">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
-                        <label class="form-check-label" for="rememberMe">Remember me</label>
-                      </div>
-                    </div>-->
+                      <input type="password" name="password" placeholder="......" class="form-control @error('password') is-invalid @enderror" id="yourPassword" required
+                      value={{ old('password') }} >
+                      @error('password')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                      @enderror
+                  </div>
                     <div class="col-12">
                       <button class="btn btn-primary w-100" type="submit">Connexion</button>
                     </div>
                   </form>
 
                 </div>
+                
               </div>
+              @if(session()->has('error'))
+                    <div class="alert alert-danger" role="alert">
+                      {{session('error')}}
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                  @endif
 
               <div class="credits">
                 <!-- All the links in the footer should remain intact. 

@@ -13,13 +13,13 @@ class ContactController extends Controller
         return view('contact');
     }
 
-    public function messages(){
+    public function messages(Request $request){
+
         Message::create([
-            'pseudo'=> request('pseudo'),
-            'email' => request('email'),
-            'numero'=> request('numero'),
-            'message'=> request('message'),
-            
+            'pseudo'=> $request->pseudo,
+            'email' => $request->email,
+            'numero'=> $request->numero,
+            'message'=> $request->message,
         ]);
         return back()->with('success','true');
     }

@@ -154,19 +154,14 @@
 		sliderMain();
 
 		//Téléchargement
-		let url = "/user/register";
     let token = document
         .querySelector('meta[name="csrf-token"]')
         .getAttribute("content");
-    $(".register").submit((e) => {
-        $(".register_btn").css("display", "none");
-        $(".en_cours").css("display", "block").text("En cours...");
-        /*Vérifier les valeurs ici
-            pseudo: $(".pseudo").val(),
-                email: $(".email").val(),
-                matricule: parseInt($(".matricule").val()),
-            }),
-        */
+    $(".telech").click((e) => {
+        //Récupérer l'id
+				document.querySelector('.notification.wait').style.display = "block";
+        let id = e.target.dataset.id;
+				let url = "download";
         var options = {
             headers: {
                 "Content-Type": "application/json",
@@ -177,62 +172,42 @@
             method: "post",
             credentials: "same-origin",
             body: JSON.stringify({
-                pseudo: $(".pseudo").val(),
-                email: $(".email").val(),
-                matricule: parseInt($(".matricule").val()),
+                id:Number(id)
             }),
         };
-
+				
         fetch(url, options)
             .then((response) => response.json())
             .then((response) => {
-                $(".en_cours").css("display", "none");
-                if (response.success) {
-                    $(".pseudo").val("");
-                    $(".matricule").val("");
-                    $(".text-danger.error").text("");
-                    if (response.data.inscrit) {
-                        $(".alogin").click();
-                        $(".text-success.info").text(
-                            "Vous possedez déjà un compte..."
-                        );
-                        $(".log_email").val($(".email").val());
-                        $(".email").val("");
-                        $(".register_btn").css("display", "block");
-                    } else if (response.data.user) {
-                        $(".email").val("");
-                        $(".text-success.error")
-                            .text(
-                                "Consultez votre boîte mail pour recupérer vos identifiants de connexion."
-                            )
-                            .fadeIn();
-                    }
-                } else {
-                    $(".text-success.error").text("");
-                    $(".text-danger.error")
-                        .text(
-                            "Informations incorrectes ou vous n'êtes pas autorisé sur ce site..."
-                        )
-                        .fadeIn();
-                    $(".register_btn").css("display", "block");
-                }
+                 //Success
+								 if(response.success){
+									//
+									document.querySelector('.notification.wait').style.display = "none";
+								 }
+								 else
+								{
+									e.preventDefault();
+									document.querySelector('.notification.error').style.display = "block";
+									document.querySelector('.notification.error').style.transition = "3s";
+									setTimeout(() => {
+										document.querySelector('.notification.error').style.display = "none";
+									}, 3000);
+								}
             })
             .catch(() => {
-                $(".en_cours").css("display", "none");
-                $(".text-success.error").text("");
-                $(".text-danger.error")
-                    .text(
-                        "Une erreur s'est produite,nous allons rechargez la page !"
-                    )
-                    .fadeIn();
-                setTimeout(() => {
-                    window.location.reload();
-                }, 2000);
+                //Error
+								e.preventDefault();
+								document.querySelector('.notification.error').style.display = "block";
+									document.querySelector('.notification.error').style.transition = "3s";
+									setTimeout(() => {
+										document.querySelector('.notification.error').style.display = "none";
+									}, 3000);
             });
-        e.preventDefault();
     });
 
-
+		function error(){
+			
+		}
 		//Like
 	});
 

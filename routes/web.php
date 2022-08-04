@@ -38,6 +38,8 @@ Route::post('mes-partenaires', [IndexController::class, 'newsletter'])->name('pa
 Route::get('me-contacter', [ContactController::class, 'index'])->name('contact');
 Route::post('me-contacter', [ContactController::class, 'messages'])->name('contact.post');
 
+Route::post('download',[CitationController::class, 'download']);
+
 Route::prefix('admin')->group(function () {
 
   Route::get('/', [AdminController::class, 'index'])->name('admin.home');
@@ -48,7 +50,6 @@ Route::prefix('admin')->group(function () {
       return view('admin.login');
   })->name('admin.login');
 
-  
   Route::post('/login', [AdminController::class, 'login'])->name('admin.post.login');
 
   

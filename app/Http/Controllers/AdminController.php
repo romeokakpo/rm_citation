@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Citation;
 use App\Models\Message;
+use App\Models\Newsletter;
 use App\Models\Recent;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class AdminController extends Controller
 {
@@ -25,22 +27,21 @@ class AdminController extends Controller
     }
 
     public function login(Request $request)
-    {
+    {   
+        if (session()->has('ADMIN'))
+            return redirect()->route('admin.home');
+        
         $request->validate([
             'email' => 'bail|email|required',
             'password' => 'bail|required|alpha_num',
         ]);
-
         $user = User::find(1)->first();
-
         try {
             if ($user->email == $request->email && Hash::check($request->password, $user->password)){
                 //Identification de la connexion
                 Session::put('ADMIN', serialize($user));
-                return redirect()->route('admin');
-
+                return redirect()->route('admin.home');
             } else
-
                 return back()->with('error', 'Erreur d\'authentification ! Veuiller revoir
                 vos identifiants');
 
@@ -48,31 +49,6 @@ class AdminController extends Controller
             return back()->with('error', 'Erreur d\'authentification ! Veuiller revoir
             vos identifiants');
         }
-    
-    
-        /*
-        if (session()->has('ADMIN'))
-            return redirect()->route('admin');
-        $request->validate([
-            'email' => 'bail|email|required',
-            'password' => 'bail|required|alpha_num'
-        ]);
-
-        $user = \App\Models\Utilisateur::where('matricule', 10000001)->first();
-        try {
-            if ($user->email == $request->email && Hash::check($request->password, $user->password)) {
-                //Identification de la connexion
-                Session::put('ADMIN', serialize($user));
-                return redirect()->route('admin');
-            } else
-                return back()->with('error', 'Erreur d\'authentification ! Veuiller revoir
-                vos identifiants');
-        } catch (Exception $e) {
-            return back()->with('error', 'Erreur d\'authentification ! Veuiller revoir
-            vos identifiants');
-        }
-        */
-        return view('admin.login');
     }
 
     public function messages()
@@ -81,7 +57,8 @@ class AdminController extends Controller
 
     public function newsletters()
     {
-        return view('admin.newsletter');
+        $newsletters = Newsletter::all();
+        return view('admin.newsletter', compact('newsletters'));
     }
 
     public function notifications()
@@ -89,7 +66,7 @@ class AdminController extends Controller
     }
     public function profil()
     {
-        $user = \App\Models\User::find(1)->first();
+        $user = User::find(1)->first();
         return view('admin.profile', compact('user'));
     }
 
@@ -121,6 +98,7 @@ class AdminController extends Controller
 
     public function logout()
     {
+        Session::forget('ADMIN');
         return redirect()->route('home');
     }
 }

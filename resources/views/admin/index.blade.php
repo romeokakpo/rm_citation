@@ -109,7 +109,7 @@
                       @foreach ($messages as $message)
                         <tr>
                           <td>{{ $message->id }}</td>
-                          <td>{{ $message->email }}</td>
+                          <td> <a href="mailto://{{ $message->email }}">{{ $message->email }}</a></td>
                           <td>{{ $message->numero }}</td>
                           <td>{{ $message->message }}</td>
                           <td><button class="btn btn-danger" type="submit"><i class="bi bi-trash"></i></button> </td>

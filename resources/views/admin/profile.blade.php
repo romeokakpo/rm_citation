@@ -137,14 +137,6 @@
                       </div>
                     </div>
 
-                    <div class="row mb-3">
-                      <label for="Linkedin" class="col-md-4 col-lg-3 col-form-label"> Profil Linkedin</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="linkedin" type="text" class="form-control" id="Linkedin"
-                          value="{{ $user->linkedin }}">
-                      </div>
-                    </div>
-
                     <div class="text-center">
                       <button type="submit" class="btn btn-primary">Sauvegarder</button>
                     </div>

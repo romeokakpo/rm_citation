@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Recent extends Model
 {
     use HasFactory;
+    protected $fillable= ['content', 'type'];
 }

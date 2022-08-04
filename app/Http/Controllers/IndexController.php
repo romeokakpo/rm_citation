@@ -14,9 +14,10 @@ class IndexController extends Controller
         return view('home', compact('citations'));
     }
 
-    public function newsletter(){
+    public function newsletter(Request $request){
+        
         Newsletter::firstOrCreate([
-            'email' => request('email'),
+            'email' => $request->email,
         ]);
         return back()->with('success','true');
     }

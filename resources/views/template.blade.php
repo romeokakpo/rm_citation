@@ -76,6 +76,13 @@
 				 padding-right: 15px;
 				 display: none;
 			}
+			.notification.error{
+				background:#f14668;
+				color: #fffffb;
+			}
+			.notification.wait{
+				background: #485fc7;
+			}
 		</style>
 	</head>
 	<body>
@@ -93,7 +100,7 @@
 					<li class="{{URL::current() == route('citations')?"fh5co-active":""}}"><a href="{{route('citations')}}">Citations</a></li>
 					<li class="{{URL::current() == route('musiques')?"fh5co-active":""}}"><a href="{{route('musiques')}}">Musiques</a></li>
 					<li class="{{URL::current() == route('videos')?"fh5co-active":""}}"><a href="{{route('videos')}}">Clips Vidéos</a></li>
-					<li class="{{URL::current() == route('patner')?"fh5co-active":""}}"><a href="{{route('patner')}}">Partenaires</a></li>
+					<!--<li class="{{URL::current() == route('patner')?"fh5co-active":""}}"><a href="{{route('patner')}}">Partenaires</a></li>-->
 					<li class="{{URL::current() == route('contact')?"fh5co-active":""}}"><a href="{{route('contact')}}">Contacter</a></li>
 				</ul>
 			</nav>

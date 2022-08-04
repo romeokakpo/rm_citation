@@ -161,7 +161,7 @@
             @endphp
             @foreach ($nonlu as $message)
               <li class="message-item">
-                <a href="{{ route('read_msg', $message->id) }}">
+                <a href="{{ route('inbox', $message->id) }}">
                   <div>
                     <h4>{{ $message->email }}</h4>
                     <p>{{ substr($message->message, 0, 50) }}...</p>
@@ -307,7 +307,7 @@
         </ul>
       </li>
 
-      <li class="nav-item">
+      <!--<li class="nav-item">
         <a class="nav-link {{ strpos(\Request::route()->getName(), 'partenaires') === 0 ? '' : 'collapsed' }}"
           data-bs-target="#parter-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-people"></i><span>Partenaires</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -326,7 +326,7 @@
             </a>
           </li>
         </ul>
-      </li>
+      </li>-->
 
       <li class="nav-item">
         <a class="nav-link icon {{ URL::current() != route('newsletters.list') ? 'collapsed' : '' }}"
