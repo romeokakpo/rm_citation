@@ -57,11 +57,15 @@ Route::prefix('admin')->group(function () {
   Route::resource('videos', VideoController::class);
   Route::resource('partenaires', PatnerController::class);
   Route::resource('musiques', MusiqueController::class);
-
+  
   Route::get('/newsletters', [AdminController::class, 'newsletters'])->name('newsletters.list');
   Route::get('/notifications', [AdminController::class, 'notifications'])->name('notifications.list');
   Route::get('/messages', [AdminController::class, 'messages'])->name('inbox');
   Route::get('/profil', [AdminController::class, 'profil'])->name('admin.profil');
-  Route::post('/profil', [AdminController::class, 'password'])->name('password');
+
+  Route::post('/profil', [AdminController::class, 'profil'])->name('profile');
+
+  Route::post('/', [AdminController::class, 'password'])->name('password');
+  
   Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
 });
