@@ -69,7 +69,7 @@ Route::group(['middleware' => ['admin_auth']], function () {
     Route::get('/messages/all', [AdminController::class, 'read_all'])->name('inbox.all');
     Route::post('message/read', [AdminController::class, 'read_one'])->name('inbox.one');
     Route::post('message/del', [AdminController::class, 'del_one'])->name('inbox.del');
-    Route::get('/profil', [AdminController::class, 'profil'])->name('admin.profil');
+    Route::get('/profile', [AdminController::class, 'profil'])->name('profile');
     Route::post('/profil', [AdminController::class, 'password'])->name('password');
   });
 });
