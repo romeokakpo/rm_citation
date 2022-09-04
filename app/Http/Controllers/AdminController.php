@@ -123,59 +123,54 @@ class AdminController extends Controller
     }
 
     public function password(Request $request)
-    {   
+    {
         $request->validate([
             'password' => 'bail|required|alpha_num',
             'newPassword' => 'bail|required|alpha_num',
-            'renewPassword' => 'bail|required'
+            'renewPassword' => 'bail|required|alpha_num'
         ]);
-        
+
         $user = User::find(1)->first();
         try {
             if ($user && Hash::check($request->password, $user->password)) {
                 if ($request->newPassword != $request->renewPassword) {
-                    return back()->with('error', 'Erreur ! Mots de passe incompatibles.');
+                    return back()->with('error', true);
                 } else {
                     $user->update(['password' => Hash::make($request->newPassword)]);
-                    return back()->with('info', 'Mot de passe modifié avec succès');
+                    return back()->with('success', true);
                 }
             } else
-                return back()->with('error', 'Erreur ! Mot de passe incorrect.');
+                return back()->with('error', true);
         } catch (Exception $e) {
-            return back()->with('error', 'Une erreur s\'est produite');
+            return back()->with('error', true);
         }
     }
-    
-    public function profile (Request $request)
 
-    {  
+    public function profile(Request $request)
+    {
+        try {
+            $request->validate([
+                'adresse' => 'required',
+                'telephone' => 'required',
+                'email' => 'required|email',
+                'twitter' => 'required',
+                'facebook' => 'required',
+                'instagram' => 'required'
+            ]);
+            $user = User::find(1)->first();
+            $user->update([
+                'adresse' => $request->adresse,
+                'telephone' => $request->telephone,
+                'email' => $request->email,
+                'twitter' => $request->twitter,
+                'facebook' => $request->facebook,
+                'instagram' => $request->instagram
+            ]);
 
-        $request->validate([
-            'adresse' => 'required',
-            'telephone' => 'required|Integer',
-            'email' => 'required|Email',
-            'twitter' => 'required',
-            'facebook' => 'required',
-            'instagram' => 'required'
-
-        ]);
-   
-    $user = User::find(1)->first();
-
-       try {
-
-        $user->update(['adresse' => $request->adresse]);
-        $user->update(['telephone' => $request->telephone]);
-        $user->update(['email' => $request->email]);
-        $user->update(['twitter' => $request->twitter]);
-        $user->update(['facebook' => $request->facebook]);
-        $user->update(['instagram' => $request->instagram]);
-        return back()->with('info', 'Mot de passe modifié avec succès');
-        
-             }    catch (Exception $e) {
-               return back()->with('error', 'Une erreur s\'est produite');
-    
-            }
+            return back()->with('success', true);
+        } catch (Exception $e) {
+            return back()->with('error', true);
+        }
     }
 
     public function logout()

@@ -14,6 +14,16 @@
 
     <section class="section profile">
       <div class="row">
+        <div class="alert alert-success alert-dismissible d-none" role="alert">
+          <i class="bi bi-check-circle me-1"></i>
+          Changement effectué !
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div class="alert alert-danger alert-dismissible d-none" role="alert">
+          <i class="bi bi-exclamation-octagon me-1"></i>
+          Une erreur s'est produite, vérifiez vos entrées !
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
         <div class="col-xl-4">
 
           <div class="card">
@@ -190,4 +200,16 @@
     </section>
 
   </main><!-- End #main -->
+@endsection
+@section('script')
+  <script>
+    @if (Session::get('success'))
+      $('.alert.alert-success.alert-dismissible').removeClass('d-none');
+      $('.alert.alert-success.alert-dismissible').addClass('fade show');
+    @endif
+    @if (Session::get('error'))
+      $('.alert.alert-danger.alert-dismissible').removeClass('d-none');
+      $('.alert.alert-danger.alert-dismissible').addClass('fade show');
+    @endif
+  </script>
 @endsection
