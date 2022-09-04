@@ -71,12 +71,18 @@
         @foreach ($citations as $citation)
           <div class="col-md-3 col-sm-6 col-padding animate-box" data-animate-effect="fadeInLeft">
             <div class="blog-entry">
-              <img style="cursor:pointer" onclick="window.open(this.src, '_self');" src="{{ $citation->file }}"
+              <img style="cursor:pointer" data-swal-template="#img-{{ $citation->id }}" src="{{ $citation->file }}"
                 class="img-responsive" alt="{{ $citation->texte }}">
+              <template id="img-{{ $citation->id }}">
+                <swal-image src="{{ $citation->file }}" width="auto" height="auto" alt="{{ $citation->texte }}" />
+                <swal-param name="allowEscapeKey" value="false" />
+                <swal-param name="customClass" value='{ "popup": "my-popup" }' />
+              </template>
               <div class="stat" style="text-align: right; padding-top:5px">
                 <!--<span class="pl-2 liked" style="cursor: pointer"> <i class="bi bi-heart"></i> {{ $citation->like }}</span>-->
                 <span class="pl-2 telech" style="cursor: pointer"><i class="bi bi-download"></i> Télécharger</span>
-                <a data-id="{{$citation->id}}" download href="{{ $citation->file }}"></a><br>
+                <a data-url="{{ route('download') }}" data-id="{{ $citation->id }}" download
+                  href="{{ asset($citation->file) }}"></a><br>
               </div>
 
               <span class="pl-2"><small style="font-size: 0.99rem;">Publié le
@@ -84,7 +90,12 @@
             </div>
           </div>
         @endforeach
+        <div style="text-align: right">
+          <a href="{{ route('citations') }}"><button class="btn " style="text-transform: none">Voir
+              plus...</button></a>
+        </div>
       </div>
+
     </div>
 
     <div id="get-in-touch">
@@ -114,29 +125,29 @@
   <div class="notification wait">
     Votre téléchargement va démmarré dans un instant...
   </div>
-  <div class="notification">
+  <div class="notification-follow">
     Abonnement réussi !
   </div>
   <div class="notification error">
     Une erreur s'est produite !
   </div>
-  @if(session()->has('success'))
+  @if (session()->has('success'))
     <script>
-        document.querySelector('.notification').style.display = "block";
-        document.querySelector('.notification').style.transition = "3s";
-        setTimeout(() => {
-            document.querySelector('.notification').style.display = "none";
-        }, 3000);
+      document.querySelector('.notification-follow').style.display = "block";
+      document.querySelector('.notification-follow').style.transition = "3s";
+      setTimeout(() => {
+        document.querySelector('.notification-follow').style.display = "none";
+      }, 3000);
     </script>
   @endif
   @if (session()->has('error'))
-  <script>
-    document.querySelector('.notification.error').style.display = "block";
-    document.querySelector('.notification.error').style.transition = "3s";
-    setTimeout(() => {
-      document.querySelector('.notification.error').style.display = "none";
-    }, 3000);
-  </script>
-@endif
+    <script>
+      document.querySelector('.notification.error').style.display = "block";
+      document.querySelector('.notification.error').style.transition = "3s";
+      setTimeout(() => {
+        document.querySelector('.notification.error').style.display = "none";
+      }, 3000);
+    </script>
+  @endif
   </div>
 @endsection

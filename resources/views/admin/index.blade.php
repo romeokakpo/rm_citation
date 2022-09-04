@@ -101,13 +101,22 @@
             </div>
 
             <!-- Recent Sales -->
-            <div class="col-12">
+            <div class="col-12" id="messages">
               <div class="card recent-sales overflow-auto">
 
                 <div class="card-body">
                   <h5 class="card-title">Messages récents</h5>
-
-                  <table class="table table-borderless">
+                  <div class="alert alert-success alert-dismissible d-none" role="alert">
+                    <i class="bi bi-check-circle me-1"></i>
+                    Message supprimé !
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                  <div class="alert alert-danger alert-dismissible d-none" role="alert">
+                    <i class="bi bi-exclamation-octagon me-1"></i>
+                    Message non supprimé : Une erreur s'est produite !
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                  <table class="table table-borderless datatable">
                     <thead>
                       <tr>
                         <th scope="col">#</th>
@@ -123,14 +132,75 @@
                           <td colspan="5">Aucun message...</td>
                         </tr>
                       @endif
+                      @php
+                        $IDs = '';
+                      @endphp
                       @foreach ($messages as $message)
-                        <tr>
+                        <tr class="del-{{ $message->id }}"
+                          @if ($message->lu == 0) style="background-color:rgba(50,50,255,0.1)" @endif>
                           <td>{{ $message->id }}</td>
                           <td> <a href="mailto://{{ $message->email }}">{{ $message->email }}</a></td>
                           <td>{{ $message->numero }}</td>
-                          <td>{{ $message->message }}</td>
-                          <td><button class="btn btn-danger" type="submit"><i class="bi bi-trash"></i></button> </td>
+                          <td>{{ substr($message->message, 0, 15) }}...
+                            <a href="#" data-swal-template="#msg-id-{{ $message->id }}"><span
+                                id="read-{{ $message->id }}"> Lire</span></a>
+                            <template id="msg-id-{{ $message->id }}">
+                              @if ($message->pseudo === 'Non défini')
+                                <swal-title>Message d'un visiteur</swal-title>
+                              @else
+                                <swal-title>Message de {{ $message->pseudo }}</swal-title>
+                              @endif
+
+                              <swal-html>
+                                <p>Adresse: <a href="mailto:{{ $message->email }}">{{ $message->email }}</a></p>
+                                <p>
+                                  Contenu: <br>
+                                  <hr>
+                                  {{ $message->message }}
+                                </p>
+                                <hr>
+                              </swal-html>
+                              <swal-footer>
+                                {{ 'Envoyé le ' . $message->created_at->format('d-m-Y') . ' à ' . $message->created_at->format('H:i') . ' GMT + 1' }}
+                              </swal-footer>
+                            </template>
+                          </td>
+                          <td>
+                            <button data-bs-toggle="modal" data-bs-target="#del-msg-{{ $message->id }}"
+                              class="btn btn-danger" type="submit">
+                              <i class="bi bi-trash"></i>
+                            </button>
+                            <div class="modal fade" id="del-msg-{{ $message->id }}" tabindex="-1">
+                              <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title">Supprimer ce message ?</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                      aria-label="Close"></button>
+                                  </div>
+                                  <div class="modal-body text-center">
+                                    <p>Adresse: <a href="mailto:{{ $message->email }}">{{ $message->email }}</a></p>
+                                    <p>
+                                      Contenu: <br>
+                                      <hr>
+                                      {{ substr($message->message, 0, 150) }}...
+                                    </p>
+                                    <hr>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                      data-bs-dismiss="modal">Annuler</button>
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                                      id="del-{{ $message->id }}">Supprimer</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </td>
                         </tr>
+                        @php
+                          $IDs .= $message->id . ',';
+                        @endphp
                       @endforeach
                     </tbody>
                   </table>
@@ -160,7 +230,7 @@
                 @endif
                 @foreach ($recents as $recent)
                   <div class="activity-item d-flex">
-                    
+
                     <i
                       class='bi bi-circle-fill activity-badge {{ $recent->type == 'success' ? 'text-success' : 'text-danger' }} align-self-start'></i>
                     <div class="activity-content">
@@ -179,4 +249,64 @@
     </section>
 
   </main><!-- End #main -->
+@endsection
+@section('script')
+  <script>
+    let values = [{{ $IDs }}];
+
+    let request_del = async (id) => {
+      var options = {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json, text-plain, */*",
+          "X-Requested-With": "XMLHttpRequest",
+          "X-CSRF-TOKEN": token,
+        },
+        method: "post",
+        credentials: "same-origin",
+        body: JSON.stringify({
+          id: id
+        }),
+      };
+
+      await fetch("{{ route('inbox.del') }}", options)
+        .then((response) => response.json())
+        .then((response) => {
+          if (response.success) {
+            $('.alert.alert-success.alert-dismissible').removeClass('d-none');
+            $('.alert.alert-success.alert-dismissible').addClass('fade show');
+            setTimeout(() => {
+              $('.alert.alert-success.alert-dismissible').removeClass('fade show');
+              $('.alert.alert-success.alert-dismissible').addClass('d-none');
+            }, 2000);
+            $('.del-' + id).remove();
+          } else {
+            $('.alert.alert-danger.alert-dismissible').removeClass('d-none');
+            $('.alert.alert-danger.alert-dismissible').addClass('fade show');
+            setTimeout(() => {
+              $('.alert.alert-danger.alert-dismissible').removeClass('fade show');
+              $('.alert.alert-danger.alert-dismissible').addClass('d-none');
+            }, 2000);
+          }
+        })
+        .catch(() => {
+          $('.alert.alert-danger.alert-dismissible').removeClass('d-none');
+          $('.alert.alert-danger.alert-dismissible').addClass('fade show');
+          setTimeout(() => {
+            $('.alert.alert-danger.alert-dismissible').removeClass('fade show');
+            $('.alert.alert-danger.alert-dismissible').addClass('d-none');
+          }, 2000);
+        });
+    }
+    values.forEach(el => {
+      $('#read-' + el).click(() => {
+        request(el);
+      })
+    });
+    values.forEach(el => {
+      $('#del-' + el).click(() => {
+        request_del(el);
+      })
+    });
+  </script>
 @endsection

@@ -5,9 +5,10 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Dashboard - NiceAdmin Bootstrap Template</title>
+  <title>RM Citations Dashboard</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <!-- Favicons -->
   <link href="/assets/img/favicon.png" rel="icon">
@@ -20,15 +21,15 @@
     rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="/assets/vendor/simple-datatables/style.css" rel="stylesheet">
+  <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+  <link href="{{ asset('assets/vendor/remixicon/remixicon.css') }}" rel="stylesheet">
+  <link href="{{ asset('assets/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('assets/vendor/simple-datatables/style.css') }}" rel="stylesheet">
 
   <!-- Template Main CSS File -->
   <link href="/assets/css/style.css" rel="stylesheet">
-
+  @yield('styles')
   <!-- =======================================================
   * Template Name: NiceAdmin - v2.2.2
   * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
@@ -56,40 +57,40 @@
         <li class="nav-item dropdown">
 
           <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-            <i class="bi bi-chat-left-text"></i>
+            <i class="bi bi-bell"></i>
             @php
               $countnotif = \App\Models\Notification::where('lu', 0)->count();
             @endphp
-            @if ($countmsg)
-              <span class="badge bg-success badge-number">{{ $countmsg }}</span>
+            @if ($countnotif)
+              <span class="badge bg-primary badge-number">{{ $countnotif }}</span>
             @endif
 
-          </a><!-- End Messages Icon -->
+          </a><!-- End Notiication Icon -->
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
             <li class="dropdown-header">
-              @if ($countmsg)
-                Vous avez {{ $countmsg }} message(s) non lu
-                <a href="{{ route('inbox') }}"><span class="badge rounded-pill bg-primary p-2 ms-2">Tout voir</span></a>
+              @if ($countnotif)
+                Vous avez + {{ $countnotif }} abonnements...
+                <a href="{{ route('notifications.all') }}"><span class="badge rounded-pill bg-primary p-2 ms-2">Marquer
+                    comme
+                    lu</span></a>
               @else
-                Pas de nouveaux messages
+                Pas de nouvelles notifications
               @endif
-
             </li>
             <li>
               <hr class="dropdown-divider">
             </li>
             @php
-              $nonlu = \App\Models\Message::where('lu', 0)
+              $nonlu = \App\Models\Notification::where('lu', 0)
                   ->latest('id')
                   ->paginate(5)
                   ->all();
             @endphp
-            @foreach ($nonlu as $message)
+            @foreach ($nonlu as $notif)
               <li class="message-item">
-                <a href="{{ route('inbox', $message->id) }}">
+                <a href="#">
                   <div>
-                    <h4>{{ $message->email }}</h4>
-                    <p>{{ substr($message->message, 0, 50) }}...</p>
+                    <p>{{ $notif->description }}</p>
                   </div>
                 </a>
               </li>
@@ -98,9 +99,9 @@
               </li>
             @endforeach
             <li class="dropdown-footer">
-              <a href="{{ route('inbox') }}">Afficher tous les messages</a>
+              <a href="{{ route('notifications.all') }}">Afficher tous les abonnés</a>
             </li>
-          </ul><!-- End Messages Dropdown Items -->
+          </ul>
         </li><!-- End Notification Nav -->
 
         <li class="nav-item dropdown">
@@ -119,7 +120,8 @@
             <li class="dropdown-header">
               @if ($countmsg)
                 Vous avez {{ $countmsg }} message(s) non lu
-                <a href="{{ route('inbox') }}"><span class="badge rounded-pill bg-primary p-2 ms-2">Tout voir</span></a>
+                <a href="{{ route('inbox.all') }}"><span class="badge rounded-pill bg-primary p-2 ms-2">Marquer comme
+                    lu</span></a>
               @else
                 Pas de nouveaux messages
               @endif
@@ -133,22 +135,48 @@
                   ->latest('id')
                   ->paginate(5)
                   ->all();
+              $IDs = '';
             @endphp
             @foreach ($nonlu as $message)
-              <li class="message-item">
-                <a href="{{ route('inbox', $message->id) }}">
+              <li class="message-item" id="ID-{{ $message->id }}">
+                <a href="#" data-swal-template="#msg-id-{{ $message->id }}">
                   <div>
                     <h4>{{ $message->email }}</h4>
-                    <p>{{ substr($message->message, 0, 50) }}...</p>
+                    <p>{{ substr($message->message, 0, 50) }}... <br>
+                      <small>{{ 'Envoyé le ' . $message->created_at->format('d-m-Y') . ' à ' . $message->created_at->format('H:i') . ' GMT + 1' }}</small>
+                    </p>
                   </div>
                 </a>
+                <template id="msg-id-{{ $message->id }}">
+                  @if ($message->pseudo === 'Non défini')
+                    <swal-title>Message d'un visiteur</swal-title>
+                  @else
+                    <swal-title>Message de {{ $message->pseudo }}</swal-title>
+                  @endif
+
+                  <swal-html>
+                    <p>Adresse: <a href="mailto:{{ $message->email }}">{{ $message->email }}</a></p>
+                    <p>
+                      Contenu: <br>
+                      <hr>
+                      {{ $message->message }}
+                    </p>
+                    <hr>
+                  </swal-html>
+                  <swal-footer>
+                    {{ 'Envoyé le ' . $message->created_at->format('d-m-Y') . ' à ' . $message->created_at->format('H:i') . ' GMT + 1' }}
+                  </swal-footer>
+                </template>
               </li>
               <li>
                 <hr class="dropdown-divider">
               </li>
+              @php
+                $IDs .= $message->id . ',';
+              @endphp
             @endforeach
             <li class="dropdown-footer">
-              <a href="{{ route('inbox') }}">Afficher tous les messages</a>
+              <a href="{{ route('admin.home') }}#messages">Afficher tous les messages</a>
             </li>
           </ul><!-- End Messages Dropdown Items -->
         </li><!-- End Messages Nav -->
@@ -170,7 +198,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="{{route('admin.profil')}}">
+              <a class="dropdown-item d-flex align-items-center" href="{{ route('admin.profil') }}">
                 <i class="bi bi-person"></i>
                 <span>Mon Profil</span>
               </a>
@@ -180,7 +208,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="{{route('admin.profil')}}">
+              <a class="dropdown-item d-flex align-items-center" href="{{ route('admin.profil') }}">
                 <i class="bi bi-gear"></i>
                 <span>Paramètres</span>
               </a>
@@ -193,7 +221,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="{{route('logout')}}">
+              <a class="dropdown-item d-flex align-items-center" href="{{ route('logout') }}">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Déconnexion</span>
               </a>
@@ -271,7 +299,8 @@
           class="nav-content collapse {{ strpos(\Request::route()->getName(), 'videos') === 0 ? 'show' : '' }}"
           data-bs-parent="#sidebar-nav">
           <li>
-            <a href="{{ route('videos.index') }}" class="{{ URL::current() == route('videos.index') ? 'active' : '' }}">
+            <a href="{{ route('videos.index') }}"
+              class="{{ URL::current() == route('videos.index') ? 'active' : '' }}">
               <i class="ri bi-circle"></i><span>Mes vidéos</span>
             </a>
             <a href="{{ route('videos.create') }}"
@@ -329,10 +358,10 @@
       &copy; Copyright <strong><span>RM Admin</span></strong>. All Rights Reserved
     </div>
     <!--<div class="credits">
-      <!-- All the links in the footer should remain intact. 
-      <!-- You can delete the links only if you purchased the pro version. 
-      <!-- Licensing information: https://bootstrapmade.com/license/ 
-      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ 
+      <!-- All the links in the footer should remain intact.
+      <!-- You can delete the links only if you purchased the pro version.
+      <!-- Licensing information: https://bootstrapmade.com/license/
+      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
       Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
     </div>-->
   </footer><!-- End Footer -->
@@ -341,14 +370,49 @@
       class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
-  <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="/assets/vendor/simple-datatables/simple-datatables.js"></script>
-  <script src="/assets/vendor/tinymce/tinymce.min.js"></script>
-  <script src="/assets/vendor/php-email-form/validate.js"></script>
-  <script src="/assets/vendor/jquery-3.2.1.min.js"></script>
-
+  <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ asset('assets/vendor/simple-datatables/simple-datatables.js') }}"></script>
+  <script src="{{ asset('assets/vendor/tinymce/tinymce.min.js') }}"></script>
+  <script src="{{ asset('assets/vendor/jquery-3.2.1.min.js') }}"></script>
+  <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
   <!-- Template Main JS File -->
   <script src="/assets/js/main.js"></script>
+  <script>
+    Swal.bindClickHandler();
+
+    let token = document
+      .querySelector('meta[name="csrf-token"]')
+      .getAttribute("content");
+
+    let request = async (id) => {
+      var options = {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json, text-plain, */*",
+          "X-Requested-With": "XMLHttpRequest",
+          "X-CSRF-TOKEN": token,
+        },
+        method: "post",
+        credentials: "same-origin",
+        body: JSON.stringify({
+          id: id
+        }),
+      };
+
+      await fetch("{{ route('inbox.one') }}", options)
+        .then((response) => response.json())
+        .then((response) => {})
+        .catch(() => {});
+    }
+
+    let IDs = [{{ $IDs }}];
+    IDs.forEach(el => {
+      $('#ID-' + el).click(() => {
+        request(el);
+      })
+    });
+  </script>
+  @yield('script')
 </body>
 
 </html>

@@ -23,8 +23,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [IndexController::class, 'index'])->name('home');
 Route::post('/', [IndexController::class, 'newsletter'])->name('home.post');
 
-Route::get('mes-citations', [CitationController::class, 'index_public'])->name('citations');
-Route::post('mes-citations', [IndexController::class, 'newsletter'])->name('citations.post');
+Route::get('mes-citations/{n?}', [CitationController::class, 'index_public'])->name('citations');
+Route::post('mes-citations/{n?}', [IndexController::class, 'newsletter'])->name('citations.post');
 
 Route::get('mes-musiques', [MusiqueController::class, 'index_public'])->name('musiques');
 Route::post('mes-musiques', [IndexController::class, 'newsletter'])->name('musiques.post');
@@ -38,30 +38,41 @@ Route::post('mes-partenaires', [IndexController::class, 'newsletter'])->name('pa
 Route::get('me-contacter', [ContactController::class, 'index'])->name('contact');
 Route::post('me-contacter', [ContactController::class, 'messages'])->name('contact.post');
 
-Route::post('download',[CitationController::class, 'download']);
+Route::post('download/citation', [CitationController::class, 'download'])->name('download');
 
-Route::prefix('admin')->group(function () {
+/**Login mode */
+Route::get('/admin/login', function () {
+  if (session()->has('ADMIN'))
+    return redirect()->route('admin.home');
+  return view('admin.login');
+})->name('admin.login');
 
-  Route::get('/', [AdminController::class, 'index'])->name('admin.home');
+Route::post('/login', [AdminController::class, 'login'])->name('admin.post.login');
 
-  Route::get('/login', function () {
-      if (session()->has('ADMIN'))
-          return redirect()->route('admin.home');
-      return view('admin.login');
-  })->name('admin.login');
+/**End Login */
 
-  Route::post('/login', [AdminController::class, 'login'])->name('admin.post.login');
+Route::group(['middleware' => ['admin_auth']], function () {
+  Route::prefix('admin')->group(function () {
 
-  
-  Route::resource('/citations', CitationController::class);
-  Route::resource('videos', VideoController::class);
-  Route::resource('partenaires', PatnerController::class);
-  Route::resource('musiques', MusiqueController::class);
+    Route::get('/', [AdminController::class, 'index'])->name('admin.home');
 
-  Route::get('/newsletters', [AdminController::class, 'newsletters'])->name('newsletters.list');
-  Route::get('/notifications', [AdminController::class, 'notifications'])->name('notifications.list');
-  Route::get('/messages', [AdminController::class, 'messages'])->name('inbox');
-  Route::get('/profil', [AdminController::class, 'profil'])->name('admin.profil');
-  Route::post('/profil', [AdminController::class, 'password'])->name('password');
-  Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
+    Route::resource('/citations', CitationController::class);
+    Route::post('/delete/citation', [CitationController::class, 'delete_quote'])->name('citation.del');
+    Route::resource('videos', VideoController::class);
+    Route::post('/delete/video', [VideoController::class, 'delete_video'])->name('video.del');
+    Route::resource('partenaires', PatnerController::class);
+    Route::resource('musiques', MusiqueController::class);
+
+    Route::get('/newsletters', [AdminController::class, 'newsletters'])->name('newsletters.list');
+    Route::post('/newsletters/del', [AdminController::class, 'newsletters_del'])->name('newsletter.del');
+    Route::get('/notifications', [AdminController::class, 'notifications'])->name('notifications.all');
+    Route::get('/messages/all', [AdminController::class, 'read_all'])->name('inbox.all');
+    Route::post('message/read', [AdminController::class, 'read_one'])->name('inbox.one');
+    Route::post('message/del', [AdminController::class, 'del_one'])->name('inbox.del');
+    Route::get('/profil', [AdminController::class, 'profil'])->name('admin.profil');
+    Route::post('/profil', [AdminController::class, 'password'])->name('password');
+  });
 });
+
+
+Route::get('admin/logout', [AdminController::class, 'logout'])->name('logout');
