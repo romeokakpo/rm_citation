@@ -26,7 +26,6 @@
                 <a href="{{ $user->twitter }}" class="twitter"><i class="bi bi-twitter"></i></a>
                 <a href="{{ $user->facebook }}" class="facebook"><i class="bi bi-facebook"></i></a>
                 <a href="{{ $user->instagram }}" class="instagram"><i class="bi bi-instagram"></i></a>
-                <a href="{{ $user->linkedin }}" class="linkedin"><i class="bi bi-linkedin"></i></a>
               </div>
             </div>
           </div>
@@ -80,11 +79,12 @@
                 <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
                   <!-- Profile Edit Form -->
-                  <form>
+                  <form method="POST" action="{{ route('profile') }}">
+                    @csrf
                     <div class="row mb-3">
                       <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profil Image</label>
                       <div class="col-md-8 col-lg-9">
-                        <img src="/assets/img/profile-img.jpg" alt="Profile">
+                        <img src="{{ asset('assets/img/profile-img.jpg') }}" alt="Profile">
 
                       </div>
                     </div>
@@ -92,48 +92,48 @@
                     <div class="row mb-3">
                       <label for="Address" class="col-md-4 col-lg-3 col-form-label">Adresse</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="adresse" type="text" class="form-control" id="Address"
-                          value="{{ $user->adresse }}">
+                        <input name="adresse" type="text" value="{{ $user->adresse }}" class="form-control"
+                          id="Address" required>
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Téléphone</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="telephone" type="text" class="form-control" id="Phone"
-                          value="{{ $user->telephone }}">
+                        <input name="telephone" type="text" value="{{ $user->telephone }}" class="form-control"
+                          id="Phone" required>
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="email" type="email" class="form-control" id="Email"
-                          value="{{ $user->email }}">
+                        <input name="email" type="email" value="{{ $user->email }}" class="form-control"
+                          id="Email" required>
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="Twitter" class="col-md-4 col-lg-3 col-form-label">Profil Twitter</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="twitter" type="text" class="form-control" id="Twitter"
-                          value="{{ $user->twitter }}">
+                        <input name="twitter" type="text" value="{{ $user->twitter }}" class="form-control"
+                          id="Twitter" required>
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="Facebook" class="col-md-4 col-lg-3 col-form-label">Profil Facebook</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="facebook" type="text" class="form-control" id="Facebook"
-                          value="{{ $user->facebook }}">
+                        <input name="facebook" type="text" value="{{ $user->facebook }}" class="form-control"
+                          id="Facebook" required>
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="Instagram" class="col-md-4 col-lg-3 col-form-label">Profil Instagram</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="instagram" type="text" class="form-control" id="Instagram"
-                          value="{{ $user->instagram }}">
+                        <input name="instagram" type="text" value="{{ $user->instagram }}" class="form-control"
+                          id="Instagram" required>
                       </div>
                     </div>
 
@@ -141,6 +141,7 @@
                       <button type="submit" class="btn btn-primary">Sauvegarder</button>
                     </div>
                   </form><!-- End Profile Edit Form -->
+
 
                 </div>
 
@@ -151,21 +152,24 @@
                     <div class="row mb-3">
                       <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Mot de passe actuel</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="password" type="password" class="form-control" id="currentPassword">
+                        <input name="password" type="password" placeholder="**********" class="form-control"
+                          id="currentPassword" required>
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">Nouveau mot de passe</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="newPassword" type="password" class="form-control" id="newPassword">
+                        <input name="newPassword" type="password" placeholder="**********" class="form-control"
+                          id="newPassword" required>
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Confirmer</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="renewPassword" type="password" class="form-control" id="renewPassword">
+                        <input name="renewPassword" type="password" placeholder="**********" class="form-control"
+                          id="renewPassword" required>
                       </div>
                     </div>
 
@@ -173,6 +177,7 @@
                       <button type="submit" class="btn btn-primary">Appliquer</button>
                     </div>
                   </form><!-- End Change Password Form -->
+
                 </div>
 
               </div><!-- End Bordered Tabs -->

@@ -6,7 +6,7 @@
   <?php
   $admin = \App\Models\User::find(1)->first();
   ?>
-  <div id="fh5co-main">
+<div id="fh5co-main">
     <div class="fh5co-more-contact">
       <div class="fh5co-narrow-content">
         <div class="row">

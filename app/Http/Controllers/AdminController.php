@@ -123,13 +123,13 @@ class AdminController extends Controller
     }
 
     public function password(Request $request)
-    {
+    {   
         $request->validate([
             'password' => 'bail|required|alpha_num',
             'newPassword' => 'bail|required|alpha_num',
             'renewPassword' => 'bail|required'
         ]);
-
+        
         $user = User::find(1)->first();
         try {
             if ($user && Hash::check($request->password, $user->password)) {
@@ -144,6 +144,38 @@ class AdminController extends Controller
         } catch (Exception $e) {
             return back()->with('error', 'Une erreur s\'est produite');
         }
+    }
+    
+    public function profile (Request $request)
+
+    {  
+
+        $request->validate([
+            'adresse' => 'required',
+            'telephone' => 'required|Integer',
+            'email' => 'required|Email',
+            'twitter' => 'required',
+            'facebook' => 'required',
+            'instagram' => 'required'
+
+        ]);
+   
+    $user = User::find(1)->first();
+
+       try {
+
+        $user->update(['adresse' => $request->adresse]);
+        $user->update(['telephone' => $request->telephone]);
+        $user->update(['email' => $request->email]);
+        $user->update(['twitter' => $request->twitter]);
+        $user->update(['facebook' => $request->facebook]);
+        $user->update(['instagram' => $request->instagram]);
+        return back()->with('info', 'Mot de passe modifié avec succès');
+        
+             }    catch (Exception $e) {
+               return back()->with('error', 'Une erreur s\'est produite');
+    
+            }
     }
 
     public function logout()
